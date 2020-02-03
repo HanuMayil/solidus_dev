@@ -3,7 +3,7 @@ module Spree::BaseHelperDecorator
     link_to image_tag(image_path, img_options), spree.root_path
   end
 
-  def taxons_tree(root_taxon, current_taxon, max_level = 1)
+  def nav_tree(root_taxon, current_taxon, max_level = 1)
     return '' if max_level < 1 || root_taxon.children.empty?
     content_tag :ul, class: 'dropdown-menu' do
       taxons = root_taxon.children.map do |taxon|
@@ -16,5 +16,4 @@ module Spree::BaseHelperDecorator
       safe_join(taxons, "\n")
     end
   end
-
 end

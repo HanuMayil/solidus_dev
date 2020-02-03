@@ -30,6 +30,15 @@ haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           </ul>
         </li>
       </ul>
+      <ul class='nav navbar-nav navbar-right'>
+        <li id="link-to-cart" data-hook>
+            <noscript>
+              <%= link_to t('spree.cart'), spree.cart_path %>
+            </noscript>
+            &nbsp;
+          </li>
+          <script>Spree.fetch_cart('<%= j spree.cart_link_path %>')</script>
+      </ul>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search">
