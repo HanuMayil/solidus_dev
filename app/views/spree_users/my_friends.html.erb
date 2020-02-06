@@ -1,11 +1,13 @@
-<h1> my friends </h1>
+<h1> My Friends </h1>
 
+<%= render 'friends/lookup' %>
 <% if @friendships.size > 0 %>
    <table class="table table-stripe"”>
      <thead>
           <tr>
              <th colspan= "3" class = "page-header"
-                   <h2>My friends</h2>
+             <hr>
+                  <h3>My friends</h3>
              </th>
           </tr>
           <tr>
@@ -19,7 +21,7 @@
         <tr>
           <td><%= friend.email %></td>
           <td>
-            <%= link_to "View Profile", user_path(friend), class: "btn btn-primary btn-xs" %>
+            <%= link_to "View Profile", user_path(friend), class: "btn btn-primary btn-s" %>
             <%= link_to 'Remove Friend', friendship_path(friend),
               :method => :delete,
               :data => { :confirm => "Are you sure?" },
