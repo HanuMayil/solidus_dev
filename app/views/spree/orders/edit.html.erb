@@ -20,6 +20,7 @@
           </div>
           <hr>
           <div class="links columns sixteen alpha omega form-group" data-hook="cart_buttons">
+            <%= order_form.text_field :coupon_code, :size => 10, :placeholder => Spree.t(:coupon_code), class: 'form-control' %>
             <%= button_tag t("spree.update"), class: "primary btn btn-success", id: "update-button" %>
             <%= button_tag class: 'button checkout primary btn btn-primary', id: 'checkout-link', name: 'checkout' do %>
               <%= t('spree.checkout') %>
@@ -38,7 +39,7 @@
         </p>
       <% end %>
 
-      <%= render template: 'spree/coupon_codes/new' %>
+
     </div>
 
   <% end %>

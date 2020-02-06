@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_31_152673) do
+ActiveRecord::Schema.define(version: 2020_02_06_170043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,17 @@ ActiveRecord::Schema.define(version: 2020_01_31_152673) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "added_items", force: :cascade do |t|
+    t.bigint "item_id"
+    t.bigint "spree_order_id"
+    t.bigint "spree_user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_id"], name: "index_added_items_on_item_id"
+    t.index ["spree_order_id"], name: "index_added_items_on_spree_order_id"
+    t.index ["spree_user_id"], name: "index_added_items_on_spree_user_id"
+  end
+
   create_table "friendly_id_slugs", id: :serial, force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -66,6 +77,46 @@ ActiveRecord::Schema.define(version: 2020_01_31_152673) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
+  create_table "friendships", force: :cascade do |t|
+    t.bigint "spree_user_id"
+    t.bigint "friend_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.index ["friend_id"], name: "index_friendships_on_friend_id"
+    t.index ["spree_user_id"], name: "index_friendships_on_spree_user_id"
+  end
+
+  create_table "group_members", force: :cascade do |t|
+    t.bigint "spree_user_id"
+    t.bigint "group_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_group_members_on_group_id"
+    t.index ["spree_user_id"], name: "index_group_members_on_spree_user_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "group_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.float "unit_price"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "order_members", force: :cascade do |t|
+    t.bigint "spree_user_id"
+    t.bigint "spree_order_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["spree_order_id"], name: "index_order_members_on_spree_order_id"
+    t.index ["spree_user_id"], name: "index_order_members_on_spree_user_id"
   end
 
   create_table "spree_addresses", id: :serial, force: :cascade do |t|
@@ -1203,6 +1254,17 @@ ActiveRecord::Schema.define(version: 2020_01_31_152673) do
     t.integer "zone_members_count", default: 0
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
+  end
+
+  create_table "user_items", force: :cascade do |t|
+    t.bigint "added_item_id"
+    t.bigint "spree_user_id"
+    t.float "percent_owing"
+    t.integer "quantity"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["added_item_id"], name: "index_user_items_on_added_item_id"
+    t.index ["spree_user_id"], name: "index_user_items_on_spree_user_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
